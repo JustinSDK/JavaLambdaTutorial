@@ -794,7 +794,7 @@ public interface Function<P, R> {
      Function is not a functional interface
      multiple non-overriding abstract methods found in interface Function
 
-看來來，Lambda 語法不過就是匿名類別的編譯器語法蜜糖嘛！真的嗎？來看一下接下來的程式，想想看結果會如何顯示？
+看來，Lambda 語法不過就是匿名類別的編譯器語法蜜糖嘛！真的嗎？來看一下接下來的程式，想想看結果會如何顯示？
 
 ```java
 import static java.lang.System.out;
