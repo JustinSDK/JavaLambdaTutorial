@@ -1576,7 +1576,7 @@ names.forEach(
 );
 ```
 
-因為 `forEach` 方法本身已有實作，所以不會破壞 `Iterable` 現有的其它實作。預設方法令介面看來像是有抽象方法的抽象類別，不過不同點在於，預設方法中不能使用值域（Field）成員，因為介面本身不能定義值域成員。如上所示，你可以使用預設方法來實作樣版方法（Template Method）模式，例如，你可以如下定義自己的 `Comparable` 介面：
+因為 `forEach` 方法本身已有實作，所以不會破壞 `Iterable` 現有的其它實作。預設方法令介面看來像是有抽象方法的抽象類別，不過不同點在於，預設方法中不能使用值域（Field）成員，因為介面本身不能定義值域成員。如下所示，你可以使用預設方法來實作樣版方法（Template Method）模式，例如，你可以如下定義自己的 `Comparable` 介面：
 
 ```java
 public interface Comparable<T> {
