@@ -11,7 +11,7 @@ Java 的 Lambda 語法後來歷經了數次的討論與改變，後來確定在 
 
 Java 引入的新典範其實有著函數式程式設計（Functional programming）的影子，想要善用 Java 引入的 Lambda 語法與新 API，先認識函數式程式設計會有非常大的幫助，因而在 2012 年 JCD 中，我於議程 [Java 開發者的函數式程式設計](http://www.slideshare.net/JustinSDK/java-16416534 "Java 開發者的函數式程式設計") 中探討了函數式程式設計，以及在 Java 中如何適當地運用函數式風格。
 
-Java SE 8 確定於 2014 年 3 月發表，而我發現過去的這幾個議程可以整理成為系列文章，讓大家可以認識 Java 中 Lambda 的前世今生。
+Java SE 8 確定於 2014 年 3 月發表，而我發現過去的這幾個議程可以整理成為系列文章，讓大家可以認識 Java 中 Lambda 的前世今生。除此之外，最後並加上了 JDK8 Functional API 的介紹，讓本書對 JDK8 Lambda 的介紹更為完整。
 
 - 認識 Lambda/Closure
   - [從 JavaScript 的函式物件談起](http://www.codedata.com.tw/java/understanding-lambda-closure-1-from-javascript-function-1)
@@ -30,4 +30,13 @@ Java SE 8 確定於 2014 年 3 月發表，而我發現過去的這幾個議程�
   - [不可變特性](http://www.codedata.com.tw/java/functional-programming-for-java-developers-4-immutability/)
   - [JDK8 預設方法](http://www.codedata.com.tw/java/functional-programming-for-java-developers-5-jdk8-default-methods/)
   - [惰性](http://www.codedata.com.tw/java/functional-programming-for-java-developers-6-laziness/)
+  
+- JDK8 Functional API
+  - [使用 Optional 取代 null](http://openhome.cc/Gossip/Java/Optional.html)
+  - [Consumer、Function、Predicate 與 Supplier](http://openhome.cc/Gossip/Java/ConsumerFunctionPredicateSupplier.html)
+  - [使用 Stream 進行管線操作](http://openhome.cc/Gossip/Java/Stream.html)
+  - [Stream 的 reduce 與 collect](http://openhome.cc/Gossip/Java/Reduction.html)
+  - [Optional 與 Stream 的 flatMap](http://openhome.cc/Gossip/Java/FlatMap.html)
+  - [Stream 與平行化](http://openhome.cc/Gossip/Java/ParallelStream.html)
+
 

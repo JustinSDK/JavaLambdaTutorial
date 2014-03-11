@@ -6,7 +6,10 @@ Java 的 Lambda 語法後來歷經了數次的討論與改變，後來確定在 
 
 Java 引入的新典範其實有著函數式程式設計（Functional programming）的影子，想要善用 Java 引入的 Lambda 語法與新 API，先認識函數式程式設計會有非常大的幫助，因而在 2012 年 JCD 中，我於議程 [Java 開發者的函數式程式設計](http://www.slideshare.net/JustinSDK/java-16416534 "Java 開發者的函數式程式設計") 中探討了函數式程式設計，以及在 Java 中如何適當地運用函數式風格。
 
-Java SE 8 確定於 2014 年 3 月發表，而我發現過去的這幾個議程可以整理成為系列文章，讓大家可以認識 Java 中 Lambda 的前世今生。
+Java SE 8 確定於 2014 年 3 月發表，而我發現過去的這幾個議程可以整理成為系列文章，讓大家可以認識 Java 中 Lambda 的前世今生。除此之外，最後並加上了 JDK8 Functional API 的介紹，讓本書對 JDK8 Lambda 的介紹更為完整。
+
+----------
+----------
 
 # 認識 Lambda/Closure
 
@@ -1029,9 +1032,12 @@ Part part = factory.createPart(new MaterialImpl());
 
 是的，預設方法確實是 Lambda 專案的一部份，不過它與現存的 API 如何演化有關。預設方法解除了介面上的一些限制，讓 Java 介面在進行防禦式（Defensive）的 API 演化時容易一些，並為流程的重用開啟了更多可能性，不過，也帶入多重繼承上的一些複雜度。在討論如何將現在的 API 演化的時候，我們也許會看到一些函數式程式設計（Functional programming）的影子。這些會留到下一個篇章 〈函數式程式設計〉 中來討論。
 
+----------
+----------
+
 # 函數式程式設計
 
-在 〈認識 Lambda/Closure〉 中，我談到了什麼是 Lambda/Closure、不同程式語言的支援方式，以及為什麼 JDK8 採用了目前的 Lambda 語法。想要善用 Lambda，可以從其它已具備一級函式的語言中借鏡，實際上在這些語言中，許多一級函式的概念是直接或間接來自於函數式程式設計（Functional programming），更進一步地，函數式程式設計的模型是基於 Lambda 演算。若能一步步深入這些概念，就更能夠瞭解 Lambda/Closure 的實際應用場合。
+在 〈認識 Lambda/Closure〉 中，我談到了什麼是 Lambda/Closure、不同程式語言的支援方式，以及為什麼 JDK8 採用了目前的 Lambda 語法。想要善用 Lambda，可以從其他已具備一級函式的語言中借鏡，實際上在這些語言中，許多一級函式的概念是直接或間接來自於函數式程式設計（Functional programming），更進一步地，函數式程式設計的模型是基於 Lambda 演算。若能一步步深入這些概念，就更能夠瞭解 Lambda/Closure 的實際應用場合。
 
 ## 初探函數式程式設計
 
@@ -1254,7 +1260,7 @@ public class AlgebraicType {
 list(1, 2, 3, 4); // 1:2:3:4:[]
 ```
 
-這邊定義的 `List` 是代數資料型態，它易於分解，也就是說，任何清單值都可以用兩種方式來建立，一個可能的值就是空清單 `Nil`，其它的清單值就僅僅是由首元素與尾清單建構而來，這也就是我一開始談到的，代數資料結構會曝露基本資料結構及規徑性。
+這邊定義的 `List` 是代數資料型態，它易於分解，也就是說，任何清單值都可以用兩種方式來建立，一個可能的值就是空清單 `Nil`，其他的清單值就僅僅是由首元素與尾清單建構而來，這也就是我一開始談到的，代數資料結構會曝露基本資料結構及規徑性。
 
 那麼，為什麼代數資料型態適用於分而治之（Divide-and-conquer）的場合？以這邊的 `list` 方法為例，它將問題分解為兩個子問題。
 
@@ -1486,7 +1492,7 @@ String nickName = (name != null ? name : "Guest");
 
 * 函數式程式設計更模組化
 
-  在進行函數式程式設計時，你必須將問題分解為子問題，一旦有了處理子問題的方案，就可以將這些方案，運用於其它具有相同子問題的問題中。
+  在進行函數式程式設計時，你必須將問題分解為子問題，一旦有了處理子問題的方案，就可以將這些方案，運用於其他具有相同子問題的問題中。
 
 * 工作上我要更有效率
 
@@ -1576,7 +1582,7 @@ names.forEach(
 );
 ```
 
-因為 `forEach` 方法本身已有實作，所以不會破壞 `Iterable` 現有的其它實作。預設方法令介面看來像是有抽象方法的抽象類別，不過不同點在於，預設方法中不能使用值域（Field）成員，因為介面本身不能定義值域成員。如下所示，你可以使用預設方法來實作樣版方法（Template Method）模式，例如，你可以如下定義自己的 `Comparable` 介面：
+因為 `forEach` 方法本身已有實作，所以不會破壞 `Iterable` 現有的其他實作。預設方法令介面看來像是有抽象方法的抽象類別，不過不同點在於，預設方法中不能使用值域（Field）成員，因為介面本身不能定義值域成員。如下所示，你可以使用預設方法來實作樣版方法（Template Method）模式，例如，你可以如下定義自己的 `Comparable` 介面：
 
 ```java
 public interface Comparable<T> {
@@ -1688,3 +1694,833 @@ names.stream()
 這一路下來，其實有許多觀念是可以同時套用在命令式及函數式的程式設計上，實際上，許多語言現在都支援多典範（Multi-paradigm）程式設計，即使 Java 是命令式語言、支援抽象資料型態、提供可變的變數及物件也不例外。唯一的問題就是，你是否有能力掌控這些特性？或者說，你可否瞭解這些來自於函數式程式設計的概念之真正意涵呢？
 
 所以了 … 為何該重視函數式程式設計？！
+
+----------
+----------
+
+# JDK8 Functional API
+
+如果你有時間，當然建議學習一下 Haskell 這類純函數式語言，從而對函數式程式設計有真正的接觸與認識，這對 JDK8 中那些 Functional API 的認識有幫助。不過，為了想吃一片披薩，就得去徹底瞭解義大利，好像也太「搞缸」（台：麻煩）了，這邊假設 JDK8 Functional API 就是那片披薩，我們就試著只從 Java 的觀點來談談 JDK8 Functional API 好了。
+
+## 使用 `Optional` 取代 `null`
+
+JDK8 新增了 `java.util.Optional` 類別，在談到這個類別如何使用之前，必須先引用一下 Java Collection API 及 JSR166 參與者之一 Doug Lea 的話：
+
+> *Null sucks.*
+
+圖靈獎得主、快速排序發明者 Tony Hoare，在 [QCon London 2009](http://qconlondon.com/london-2009/) 主講[《Null References: The Billion Dollar Mistake》](http://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare) 場次時也談到 `null`：
+
+> *I call it my billion-dollar mistake.*
+
+`null` 的問題在於含糊而不明確，引發的各種問題從 Java 開發者經常在與 `NullPointerException` 奮戰可見一般，我在 [〈補救 null 的策略〉](http://openhome.cc/Gossip/Programmer/Null.html) 中談過：
+
+> `null` 的最根本問題在於語意含糊不清，雖然就字面來說，`null` 可以是「不存在」、「沒有」、「無」或「空」的概念，因此在應用時，總是令人感到模稜兩可，也就讓開發者有了各自解釋的空間，當開發者想到「嘿！這邊可以沒有東西…」就直接放個 `null`，或者是想到「嗯！沒什麼東西可以傳回…」，就不假思索地傳回個 `null`，然後使用者就總是忘了檢查 `null`，引發各種可能的錯誤。
+
+由於 `null` 的根本問題在於含糊而不明確，要避免使用 `null` 的方式，就是確認過去使用 `null` 的時機與目的，並使用明確的語義。在過去使用 `null` 的情況中，開發者於方法中傳回 `null`，通常代表著客戶端必須檢查是否為 `null`，並在 `null` 的情況下使用預設值，以便後續程式繼續執行。舉個例子來說：
+
+```java
+public static void main(String[] args) {
+    String nickName = getNickName("Duke");
+    if (nickName == null) {
+        nickName = "Openhome Reader";
+    }
+    out.println(nickName);
+}
+
+static String getNickName(String name) {
+    Map<String, String> nickNames = new HashMap<>(); // 假裝的鍵值資料庫
+    nickNames.put("Justin", "caterpillar");
+    nickNames.put("Monica", "momor");
+    nickNames.put("Irene", "hamimi");
+    return nickNames.get(name); // 鍵不存在時會傳回 null
+}
+```
+
+在上面的程式中，如果呼叫 `getNickName` 時忘了檢查 `null`，那麼就會直接顯示 `null`，在這個簡單的例子中並不會怎樣，只是顯示結果令人困惑罷了，但如果後續的執行流程牽涉到至關重要的結果，程式快樂地繼續執行下去，錯誤可能到最後才會呈現發生。
+
+那麼可將 `getNickName` 修改使一定會傳回 `Optional<String>` 實例，但絕不要傳回 `null`。`Optional` 的語義是它可能包含也可能不包括值，要建立 `Optional` 實例有幾個靜態方式，使用 `of` 方法可以指定非 `null` 值建立 `Optional` 實例，使用 `empty` 方法可以建立不包裏值的 `Optional` 實例。例如，可使用 `Optional` 來改寫上頭的 `getNickName` 方法：
+
+```java
+static Optional<String> getNickName(String name) {
+    Map<String, String> nickNames = new HashMap<>();
+    nickNames.put("Justin", "caterpillar");
+    nickNames.put("Monica", "momor");
+    nickNames.put("Irene", "hamimi");
+    String nickName = nickNames.get(name);
+    return nickName == null ? Optional.empty() : Optional.of(nickName);
+}
+```
+
+因為呼叫 `getNickName` 時傳回的是 `Optional` 型態的實例，語義上表示它包含也可能不包括值，客戶端就要意識必須進行檢查，如果不檢查就直接呼叫 `Optional` 的 `get` 方法：
+
+```java
+String nickName = getNickName("Duke").get();
+out.println(nickName);
+```
+
+在 `Optional` 沒有包含值的情況下，就會直接拋出 `java.util.NoSuchElementException`，這實現了速錯（Fail fast）的概念，這讓開發者可以立即發現錯誤，並瞭解到必須使用程式碼作些檢查，可能的方式之一像是：
+
+```java
+Optional<String> nickOptional = getNickName("Duke");
+String nickName = "Openhome Reader";
+if(nickOptional.isPresent()) {
+    nickName = nickOptional.get();
+}
+out.println(nickName);
+```
+
+不過這看來有點囉嗦，一個比較好的方式可以使用 `orElse` 方法，指定值不存在時的替代值：
+
+```java
+Optional<String> nickOptional = getNickName("Duke");
+out.println(nickOptional.orElse("Openhome Reader"));
+```
+
+過去許多程式庫中使用了不少 `null`，這些程式庫無法說改就改，可使用 `Optional` 的 `ofNullable` 來銜接程式庫中會傳回 `null` 的方法，使用 `ofNullable` 方法時，若指定了非 `null` 值就會呼叫 `of` 方法，指定了 `null` 值就會呼叫 `empty` 方法。例如，先前的 `getNickName` 方法可以更簡潔地修改為：
+
+```java
+static Optional<String> getNickName(String name) {
+    Map<String, String> nickNames = new HashMap<>();
+    nickNames.put("Justin", "caterpillar");
+    nickNames.put("Monica", "momor");
+    nickNames.put("Irene", "hamimi");
+    return Optional.ofNullable(nickNames.get(name));
+}
+```
+
+## `Consumer`、`Function`、`Predicate` 與 `Supplier`
+
+Lambda 表示式實際的型態要看函式介面，雖然可以自行定義所需的函式介面，只不過對於幾種函式介面的行為，JDK8 已經定義了幾個通用的函式介面，你可以先基於這些通用函式介面來撰寫程式，在必要時再考慮自訂函式介面，JDK8 定義的通用函式介面，基本上置放於 `java.util.function` 套件之中，就行為來說，基本上可以分為 `Consumer`、`Function`、`Predicate` 與 `Supplier` 四種。
+
+- `Consumer`
+
+如果需要的行為是接受一個引數，然後處理後不傳回值，就可以使用 `Consumer` 介面，它的定義是：
+
+```java
+package java.util.function;
+
+import java.util.Objects;
+
+@FunctionalInterface
+public interface Consumer<T> {
+    void accept(T t);
+    ...
+}
+```
+
+接受 `Consumer` 的實際例子就是 `Iterable` 上的 `forEach` 方法：
+
+```
+default void forEach(Consumer<? super T> action) {
+    Objects.requireNonNull(action);
+    for (T t : this) {
+        action.accept(t);
+    }
+}
+```
+
+既然接受了引數但沒有傳回值，這行為就像純綷消耗了引數，也就是命名為 `Consumer` 的原因，如果產出，就是以副作用（Side effect）形式呈現，像是改變某物件狀態，或者是進行了輸入輸出，例如，使用 `System.out` 的 `println()` 進行輸出：
+
+```java
+Arrays.asList("Justin", "Monica", "Irene").forEach(out::println);
+```
+
+`Consumer` 介面主要是接受單一物件實例作為引數，對於基本型態 `int`、`long`、`double`，另外有 `IntConsumer`、`LongConsumer`、`DoubleConsumer` 三個函式介面；另外還有 `ObjIntConsumer`、`ObjLongConsumer`、`ObjDoubleConsumer`，這三個函式介面第一個參數接受物件實例，第二個參數接受的基本型態則對應至類別名稱。
+
+- `Function`
+
+如果需要的是接受一個引數，然後以該引數進行計算後傳回結果，就可以使用 `Function` 介面，它的定義是：
+
+```java
+package java.util.function;
+
+import java.util.Objects;
+
+@FunctionalInterface
+public interface Function<T, R> {
+    R apply(T t);
+    ...
+}
+```
+
+因為這行為就像是數學函數 `y=f(x)`，給予 `x` 值計算出 `y` 值的概念，因此命名為 `Function`，應用的例子之一，像是 使用〈`Optional` 取代 `null`〉中的 `Optional` 實例有個 `map` 方法，就接受 `Function` 實例，如果 `Optional` 有包含值，那就會用指定的 `Function` 來取得值進行結果計算，如果結果不為 `null`，就建立 `Optional` 實例來包裹結果並傳回，如果結果為 `null`，或者是一開始的 `Optional` 沒有值，就傳回不包括值的 `Optional` 實例。例如：
+
+```java
+Optional<String> nickOptional = getNickName("Justin");
+out.println(nickOptional.map(String::toUpperCase));  // 顯示 CATERPILLAR
+```
+
+`Function` 的子介面為 `UnaryOperator`，特化為參數與傳回值都是相同型態（雖然 JDK8 仍不支援函數式語言中的運算子重載，不過這個命名顯然源自於函數式語言中，運算子也是個函數的概念）：
+
+```java
+@FunctionalInterface
+public interface UnaryOperator<T> extends Function<T,T>
+```
+
+對於基本型態，則有著以下函式介面，看看它們的名稱或 API 文件，作用應該都一目瞭然：
+
+ - `IntFunction`
+ - `LongFunction`
+ - `DoubleFunction`
+ - `IntToDoubleFunction`
+ - `IntToLongFunction`
+ - `LongToDoubleFunction`
+ - `LongToIntFunction`
+ - `DoubleToIntFunction`
+ - `DoubleToLongFunction`
+
+如果需要接受兩個引數而後傳回一個結果，則可以使用 `BiFunction`：
+
+```java
+package java.util.function;
+
+import java.util.Objects;
+
+@FunctionalInterface
+public interface BiFunction<T, U, R> {
+    R apply(T t, U u);
+    ...
+}
+```
+
+類似地，`BinaryOperator` 是 `BiFunction` 的子介面，特化為兩個參數與傳回值都是相同型態，對於基本型態，也有一些對應的函式介面，只要是 `BiFunction` 或是 `BinaryOperator` 名稱結尾的，都是類似的東西，可以直接查詢API來瞭解。
+
+- `Predicate`
+
+如果接受一個引數，然後只傳回 `boolean` 值，也就是根據傳入的引數直接論斷真假的行為，就可以使用 `Predicate` 函式介面，其定義為：
+
+```java
+package java.util.function;
+
+import java.util.Objects;
+
+@FunctionalInterface
+public interface Predicate<T> {
+    boolean test(T t);
+    ...
+}
+```
+
+舉例來說，如果有個檔案名稱的 `String` 陣列 `fileNames`，想要知道其中副檔名為 .txt 的有幾個，可以如下：
+
+```java
+long count = Stream.of(fileNames)
+                   .filter(name -> name.endsWith("txt"))
+                   .count();
+```
+
+之後還會詳細介紹 `Stream`，此實例的 `filter` 方法接受 `Predicate` 實例，每個元素都會由 `Predicate` 來判斷是否被過濾出來保留。類似地，`BiPredicate` 是接受兩個引數，傳回 `boolean` 值，基本型態對應的函式介面，則有 `IntPredicate`、`LongPredicate`、`DoublePredicate`。
+
+- `Supplier`
+
+如果需要的行為是不接受任何引數，然後傳回值，那可以使用 `Supplier` 函式介面：
+
+```java
+package java.util.function;
+
+@FunctionalInterface
+public interface Supplier<T> {
+    T get();
+}
+```
+
+既然不接受引數，就能傳回值，傳回值的來源就有幾個可能性，像是固定值、某個時間某個事物的狀態值、某個外部輸入值、某個要按需（On-demand）索取的（昂貴）運算等。舉例來說，也許你的某個方法需要產生亂數，而你需要不同的亂數產生方式，那可以設計為：
+
+```java
+static void randomZero(Integer[] coins, Supplier<Integer> randomSupplier) {
+    coins[randomSupplier.get()] = 0;
+}
+```
+
+那麼就可以如此使用：
+
+```java
+Integer[] coins = {10, 10, 10, 10, 10, 10, 10, 10, 10, 10};      
+randomZero(coins, () -> (int) (Math.random() * 10));
+```
+
+來看個更實際的應用之一，想想看，怎麼產生一個無限長度的數字清單呢？例如，`PI` 的小數是無限的，如果有個演算需要逐一走訪這些小數，不知道何時會停止，那該怎麼辦？之後會介紹到的 `Stream` 有個 `generate` 方法，可以這麼使用：
+
+```java
+Stream<Integer> decimalNumbersOfPI = Stream.generate(() -> nextDecimalNumberOfPI());
+decimalNumbersOfPI.map(n -> n + 10)
+                  .filter(n -> n < 15)
+                  .forEach(out::println);
+```
+
+使用 `Stream` 的原因是可以像個清單似地操作，而實際上在 `forEach` 真正消耗某個數字之前，並不會真正去呼叫 `nextDecimalNumberOfPI`，消耗掉的數字也不會被保留，因而不會耗費記憶體，因而可以實現無限長度清單的概念。
+
+至於那些 `BooleanSupplier`、`DoubleSupplier`、`IntSupplier`、`LongSupplier`，應該不用解釋了，真不知道就直接查詢一下API
+
+
+## 使用 `Stream` 進行管線操作
+
+先來看一個程式片段：
+
+```java
+String fileName = args[0];
+String prefix = args[1];
+String firstMatchdLine = "no matched line";
+for (String line : Files.readAllLines(Paths.get(fileName))) {
+    if(line.startsWith(prefix)) {
+        firstMatchdLine = line;
+        break;
+    }
+}
+out.println(firstMatchdLine);
+```
+
+這個程式片段會讀取指定的檔案，找到第一個符合條件的行，然後顯示小寫後離開迴圈。在 JDK8 中，這類的需求，可以用以下的程式片段來完成：
+
+```java
+String fileName = args[0];
+String prefix = args[1];
+Optional<String> firstMatchdLine = 
+                Files.newBufferedReader(Paths.get(fileName))
+                     .lines()
+                     .filter(line -> line.startsWith(prefix))
+                     .findFirst();
+out.println(firstMatchdLine.orElse("no matched line"));
+```
+
+一眼可見到最大的差別是沒有使用到for迴圈與if判斷式，以及使用了管線化（Pipeline）操作風格，而效能上也有所差異，如果讀取的檔案很大，第二個程式片段會比第一個程式片段來得有效率。
+
+`java.nio.file.Files` 的 `newBufferedReader` 方法會建立`java.io.BufferedReader` 實例，`BufferedReader` 有個 `lines` 方法，會傳回 `java.util.stream.Stream` 實例，就這個例子來說就是 `Stream<String>`，使用 `Stream` 的 `filter` 方法會過濾留下符合條件的元素，`findFirst` 方法會嘗試看看留下的元素有沒有首元素，因為也可能完全沒有元素，因此傳回 `Optional<String>` 實例。
+
+效能上的差異性在於，第一個程式片段的 `Files.readAllLines` 方法傳回的是`List<String>` 實例，當中包括了檔案中所有行，如果第一行就符合指定的條件了，那後續的行讀取就是多餘的；第二個程式片段的 `lines` 方法實際上沒有進行任何一行的讀取， `filter` 也沒有作任何一行的過濾，直到呼叫 `findFirst` 時，`filter` 指定的條件才會真正去執行，而此時才會要求 `lines` 傳回的 `Stream` 進行第一行讀取，如果第一行就符合，那後續的行就不會再讀取，效率的差異性就在於此。
+
+之所以能夠達到這類惰性求值（Lazy evaluation）的效果，也就是需要時 `findFirst` 要求 `filter`，而 `filter` 再要求讀取檔案下一行這種你需要我再給的行為，功臣就是 `Stream` 實例。第一個程式片段要取得 `List` 傳回的 `Iterator`，以搭配 `for` 迴圈進行外部迭代（External iteration），第二個程式片段則將迭代行為隱藏在 `lines`、`filter` 與 `findFirst` 方法之中，稱之為內部迭代（Internal iteration），因為內部迭代的行為是被隱藏的，因此多了很多可以實現效率的可能性。
+
+JDK8 引入了 `Stream` API，也引入了管線操作風格，一個管線基本上包括了幾個部份：
+
+- 來源（Source）：可能是檔案、陣列、群集（Collection）、產生器（Generator）等，在這個例子就是指定的檔案。
+- 零或多個中介操作（Intermediate operation）：又稱為聚合操作（Aggregate operation），這些操作呼叫時，並不會立即進行手邊的資料處理，它們很懶惰（Lazy），只會在後續中介操作要求資料時才會動手處理下一筆資料，像是第二個程式片段中的 `filter` 方法。
+- 一個最終操作（Terminal operation）：最後真正需要結果的操作，這個操作會要求之前懶惰的中介操作開始動手。
+
+這就是 `Stream` API 之所以命名為 `Stream` 的原因，`Stream` 實例銜接了來源，提到中介操作方法，每個中介操作方法都會傳回 `Stream` 實例，但不會實際進行資料處理，每個中介操作後的 `Stream` 實例會串連在一起，`Stream` 亦提供最終操作方法，不是傳回 `Stream` 而是傳回真正需要的結果，最終操作方法會引發之前串連在一起的 `Stream` 實例進行資料處理。
+
+實際上從來源進行一些運算，以求得最終結果，正是程式設計時最常進行的動作，因此 JDK8 在不少具有來源概念的 API 上，都增加了可傳回 `Stream` 的方法，除了這邊看到的 `BufferedReader` 之外，你還可以使用 `Stream` 上的靜態方法來建立 `Stream` 實例，像是 `of` 方法，對於陣列，也可以使用 `Arrays` 的 `stream` 方法來建立 `Stream` 實例。
+
+`Collection` 也是個例子，其定義了 `stream` 方法會傳回 `Stream` 實例，只要是 `Collection` 都可以進行中介操作。例如，原本有個程式片段：
+
+```java
+List<Person> persons = ...;
+List<String> names = new ArrayList<>();
+for(Person person : persons) {
+    if(person.getAge() > 15) {
+        names.add(person.getName().toUpperCase());
+    }
+}
+```
+
+在 JDK8 中可以改為以下的風格：
+
+```java
+List<Person> persons = ...;
+List<String> names = persons.stream()
+                       .filter(person -> person.getAge() > 15)
+                       .map(person -> person.getName().toUpperCase())
+                       .collect(toList()); // 使用了Collectors.toList()方法
+```
+
+每個中介操作隱藏了細節，除了增加更多效率改進的空間之外，也鼓勵開發者多利用這類風格，來避免撰寫一些重複流程，或思考目前的複雜演算中，實際上會是由哪些小任務完成。
+
+例如，如果你的程式在 `for` 迴圈中使用了 `if`：
+
+```java
+for(Person person : persons) {
+    if(person.getAge() > 15) {
+        // 這是下一個小任務
+    }
+}
+```
+
+也許就有改用 `filter` 方法的可能性：
+
+```java
+persons.stream()
+   .filter(person -> person.getAge() > 15);
+
+如果你的程式在for迴圈中從一個型態對應至另一個型態：
+
+for(Person person : persons) {
+    ...
+        ...person.getName().toUpperCase()...
+    ...
+}
+```
+
+也許就有改用 `map` 方法的可能性：
+
+```java
+persons.stream()
+       .map(person -> person.getName().toUpperCase());
+```
+
+許多時候，`for` 迴圈中就是滲雜了許多小任務，從而使 `for` 迴圈中的程式碼艱澀難懂，辨識出這些小任務，運用中介操作，形成管線化操作風格，就能增加程式碼閱讀時的流暢性。
+
+`Stream` 實際上繼承自 `java.util.stream.BaseStream`，而 `BaseStream` 還有`DoubleStream`、`IntStream` 與 `LongStream` 這三個用於基本型態操作的子介面。
+
+`Stream` 只能迭代一次，重複對 `Stream` 進行迭代，會引發 `IllegalStateException`。
+
+## `Stream` 的 `reduce` 與 `collect`
+
+從一組數據依條件求得一個數，或將一組數據依條件收集至另一個容器，程式設計中不少地方都存在這類需求，使用迴圈解決這類需求，也是許多開發者最常採用的動作。舉例來說，求得一組人的男性平均年齡：
+
+```java
+List<Person> persons = null;
+int sum = 0;
+for(Person person : persons) {
+    if(person.getGender() == Person.Gender.MALE) {
+        sum += person.getAge();
+    }
+}
+int average = sum / persons.size();
+```
+
+實際上，迴圈中進行的也是求得年齡加總，而若要求得一組人的男性最大年齡：
+
+```java
+int max = 0;
+for(Person person : persons) {
+    if(person.getGender() == Person.Gender.MALE) {
+        if(person.getAge() > max) {
+            max = person.getAge();
+        }
+    }
+}
+```
+
+實際上，你的程式中這類需求都存在著類似地流程結構，而你也不斷重複撰寫著類似結構，而且從閱讀程式碼角度來看，無法一眼察覺程式意圖，在 JDK8 中，可以改寫為：
+
+```java
+int sum = persons.stream()
+             .filter(person -> person.getGender() == Person.Gender.MALE)
+             .mapToInt(Person::getAge)
+             .sum();
+            
+int average = (int) persons.stream()
+                .filter(person -> person.getGender() == Person.Gender.MALE)
+                .mapToInt(Person::getAge)
+                .average()
+                .getAsDouble();
+            
+int max = persons.stream()
+              .filter(person -> person.getGender() == Person.Gender.MALE)
+              .mapToInt(Person::getAge)
+              .max()
+              .getAsInt();
+```
+
+JDK8 的 `IntStream` 提供了 `sum`、`average`、`max`、`min` 等方法，那麼如果有其他的計算需求呢？觀察先前的迴圈結構，實際上都是將一組數據逐步取出削減，然而透過指定運算以取得結果的結構，JDK8 將這個流程結構通用化，定義了 `reduce` 方法來達到自訂運算需求。例如，以上三個流程，也可以使用 `reduce` 重新撰寫如下：
+
+```java
+int sum = persons.stream()
+            .filter(person -> person.getGender() == Person.Gender.MALE)
+            .mapToInt(Person::getAge)
+            .reduce((total, age) ->  total + age)
+            .getAsInt();
+            
+int average = persons.stream()
+                .filter(person -> person.getGender() == Person.Gender.MALE)
+                .mapToInt(Person::getAge)
+                .reduce((total, age) ->  total + age)
+                .getAsInt() / persons.size();
+            
+int max = persons.stream()
+      .filter(person -> person.getGender() == Person.Gender.MALE)
+      .mapToInt(Person::getAge)
+      .reduce(0, (currentMax, age) -> age > currentMax ? age : currentMax);
+```
+
+給 `reduce` 的 Lambda 表示式，必須接受兩個引數，第一個引數為走訪該組數據上一元素後的運算結果，第二個引數為目前走訪元素，Lambda 表示式本體就是你原先在迴圈中打算進行的運算；`reduce` 如果如上例中首兩個程式片段沒有指定初值，就會試著使用該組數據中第一個元素，作為第一次呼叫 Lambda 表示式時的第一個引數值，因為考量到數據組可能為空，因此 `reduce` 不指定初值的版本，會傳回 `OptionalInt`（非基本型態數據組，則會是`Optional`）。
+
+那麼！如果你想將一組人的男性收集至另一個 `List` 呢？在 `persons.stream().filter(person -> person.getGender() == Person.Gender.MALE)` 之後，傳回的是 `Stream<Person>`，因為 `filter` 是 `Stream` 的中介操作，不是最終操作，使用 `reduce` 的話，在處理完新元素後，每次都會傳回新的計算結果，作為下一次 Lambda 表示式接受的第一個引數，顯然不適合用來收集物件。
+
+你可以使用 `Stream` 的 `collect` 方法，以將一組人的男性收集至另一個 `List` 的需求來說，最簡單的方式就是：
+
+```java
+List<Person> males = persons.stream()
+      .filter(person -> person.getGender() == Person.Gender.MALE)
+      .collect(toList()); // toList()是java.util.stream.Collectors靜態方法
+```
+
+`Collectors` 的 `toList` 方法傳回的並不是 `List`，而是 `java.util.stream.Collector` 實例，`Collector` 主要的四個方法是：
+
+- `suppiler`：傳回 `Suppiler`，定義收集結果的新容器如何建立
+- `accumulator`：傳回 `BiConsumer`，定義如何使用結果容器收集物件
+- `combiner`：傳回 `BinaryOperator`，定義若有兩個結果容器時，如何合併為一個結果容器
+- `finisher`：傳回 `Function`，選擇性地定義如何將結果轉換為最後的結果容器
+
+來看看 `Stream` 的 `collect` 方法另一個版本，有助於瞭解 `Collector` 這幾個方法如何使用，以下的程式片段與上面的 `collect` 範例結果是相同的：
+
+```java
+List<Person> males = persons.stream()
+               .filter(person -> person.getGender() == Person.Gender.MALE)
+               .collect(
+                   () -> new ArrayList<>(),
+                   (maleLt, person) -> maleLt.add(person),
+                   (maleLt1, maleLt2) -> maleLt1.addAll(maleLt2)
+               );
+```
+
+當 `collect` 需要收集物件時，會使用第一個 Lambda 來取得容器物件，這相當於 `Collector` 的 `suppiler` 之作用，第二個 Lambda 定義了如何收集物件，也就是 `Collector` 的 `accumulator` 之作用，在使用具有平行處理能力的 `Stream` 時，有可能會使用多個容器對原數據組進行分而治之（Divide and conquer），當每個小任務完成時，該如何合併，就是第三個 Lambda 要定義的，喔！別忘了可以用方法參考，因此上面可以寫成以下比較簡潔：
+
+```java
+List<Person> males = persons.stream()
+               .filter(person -> person.getGender() == Person.Gender.MALE)
+               .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+```
+
+當然，使用這個版本的 `collect` 需要處理比較多的細節，你可以先看看 `Collectors` 上提供了哪些 `Collector` 實作。舉例來說，如果想要依性別分組，那可以使用 `Collectors` 的 `groupingBy` 方法，告訴它要用哪個當作分組的鍵（Key），最後傳回的Map結果會以List作為值（Key）：
+
+```java
+Map<Person.Gender, List<Person>> males = persons.stream()
+                  .collect(
+                      groupingBy(Person::getGender));
+```
+
+有的方法也兼具另一種流暢風格，例如，想在依性別分組之後，取得分組下的姓名，那可以如下撰寫：
+
+```java
+Map<Person.Gender, List<String>> males = persons.stream()
+                  .collect(
+                      groupingBy(Person::getGender, 
+                      mapping(Person::getName, 
+                      toList())));
+```
+
+例如，想在依性別分組之後，分別取得男女年齡加總，那可以如下撰寫：
+
+```java
+Map<Person.Gender, Integer> males = persons.stream()
+                  .collect(
+                          groupingBy(Person::getGender, 
+                               reducing(0, Person::getAge, Integer::sum))
+                  );
+```
+
+要求得各性別下平均年齡的話，`Collectors` 也有個 `averagingInt` 方法可以使用：
+
+```java
+Map<Person.Gender, Double> males = persons.stream()
+                  .collect(
+                          groupingBy(Person::getGender, 
+                               averagingInt(Person::getAge))
+                  );
+```
+
+## `Optional` 與 `Stream` 的 `flatMap`
+
+在程式設計中有時會出現巢狀或瀑布式的流程，就結構來看每一層運算極為類似，只是傳回的型態不同，很難抽取流程重用。舉例來說，如果你的方法可能傳回 `null`，你可能會設計出某個流程如下：
+
+```java
+Customer customer = order.getCustomer();
+if(customer != null) {
+    String address = customer.getAddress();
+    if(address != null) {
+        return address;
+    }
+}
+return "n.a.";
+```
+
+巢狀的層次可能還會更深，像是 ...
+
+```java
+Customer customer = order.getCustomer();
+if(customer != null) {
+    Address address = customer.getAddress();
+    if(address != null) {
+        City city = address.getCity();
+        if(city != null) {
+            ....
+        }
+    }
+}
+return "n.a.";
+```
+
+連續的層次不深時，也許程式碼看來還算直覺，然後層次一深之後，顯然地，很容易迷失在層次之中，雖然每層都是判斷值是否為 `null`，不過因為型態不同，看來不太好抽取流程重用。
+
+就 〈使用 `Optional` 取代 `null`〉 中的說明，`null` 本身就不建議使用，如果讓 `getCustomer` 傳回 `Optional<Customer>`、讓 `getAddress` 傳回 `Optional<String>`，那一開始的程式片段可以先改為：
+
+```java
+String addr = "n.a.";
+Optional<Customer> customer = order.getCustomer();
+if(customer.isPresent()) {
+    Optional<String> address = customer.get().getAddress();
+    if(address.isPresent()) {
+        addr = address.get();
+    }
+}
+return addr;
+```
+
+看來好像沒有高明到哪去，不過至少每一層都是 `Optional` 型態了，而每一層都是有無的判斷，然後將 `Optional<T>` 轉換為 `Optional<U>`，如果將 `Optional<T>` 轉換為 `Optional<U>` 的方式可以由外部指定，那你就可以重用有無的判斷了，實際上 `Optional` 有個 `flatMap` 方法，已經幫你寫好這個邏輯了：
+
+```java
+public<U> Optional<U> flatMap(Function<? super T, Optional<U>> mapper) {
+    Objects.requireNonNull(mapper);
+    if (!isPresent())
+        return empty();
+    else {
+        return Objects.requireNonNull(mapper.apply(value));
+    }
+}
+```
+
+所以，你大可以如下直接使用 `Optional` 的 `flatMap` 方法：
+
+```java
+return order.getCustomer()
+            .flatMap(Customer::getAddress)
+            .orElse("n.a.");
+```
+
+如果層次不深，也許看不出使用這個的好處，若層次深比較有益處時，像是一開始第二個程式片段，改寫為以下就清楚多了…
+
+```java
+return order.getCustomer()
+            .flatMap(Customer::getAddress)
+            .flatMap(Address::getCity)
+            .orElse("n.a.");
+```
+
+`Optional` 的 `flatMap` 這個名稱令人困惑，可從 `Optional<T>` 呼叫 `flatMap` 後會得到 `Optional<U>` 來想像一下，`flatMap` 就像是從盒子取出另一盒子置放一旁（flat 就是平坦化的意思），過程中依指定之 Lambda 將前盒的 `T` 映射（map）為 `U` 再放入後盒，因為判斷是否有值的運算情境被隱藏了，使用者因此可明確指定感興趣的特定運算，從而使程式碼意圖顯露出來，又可接暢地接續運算，以避免巢狀或瀑布式的複雜檢查流程。
+
+那麼如果你沒辦法修改程式，讓 `getCustomer`、`getAddress`、`getCity` 等傳回 `Optional` 型態怎麼辦？`Optional` 是還有個 `map` 方法，例如，若參數 `order` 是 `Order` 型態，有 `null` 的可能性，`getCustomer`、`getAddress`、`getCity` 等分別的傳回型態是 `Customer`、`Address`、`City`，且有可能傳回 `null`，那麼就可以這麼做：
+
+```java
+return Optional.ofNullable(order)
+               .map(Order::getCustomer)
+               .map(Customer::getAddress)
+               .map(Address::getCity)
+               .orElse("n.a.");
+```
+
+與 `flatMap` 的差別在於，`map` 方法實作中，對 `mapper.apply(value)` 的結果使用了 `Optional.ofNullable` 方法（`flatMap` 中使用的是 `Objects.requireNonNull`），因此有辦法持續處理 `null`的情況：
+
+```java
+public<U> Optional<U> map(Function<? super T, ? extends U> mapper) {
+    Objects.requireNonNull(mapper);
+    if (!isPresent())
+        return empty();
+    else {
+        return Optional.ofNullable(mapper.apply(value));
+    }
+}
+```
+
+如果之前的 `Order` 有個 `getLineItems` 方法，可取得訂單中的產品項目 `List<LineItem>`，想要取得 `LineItem` 的名稱，可以透過 `getName` 來取得，若你有個 `List<Order>`，想取得所有的產品項目名稱會怎麼寫？直覺的寫法應該是用迴圈…
+
+```java
+List<String> itemNames = new ArrayList<>();
+for(Order order : orders) {
+    for(LineItem lineItem : order.getLineItems()) {
+        itemNames.add(lineItem.getName());
+    }
+}
+```
+
+當然，層次不深時這樣寫很直覺也還好閱讀，不過如果層次深時，例如，想進一步取得 `LineItem` 的贈品名稱的話，你又得多一層 `for` 迴圈，如果還要繼續取下去呢？...
+
+你可以用 `List` 的 `stream` 方法取得 `Stream` 之後，使用 `flatMap` 方法如下改寫：
+
+```java
+List<String> itemNames = orders.stream()
+                .flatMap(order -> order.getLineItems().stream())
+                .map(LineItem::getName)
+                .collect(toList());
+```
+
+就程式碼閱讀來說，`stream` 方法會傳回 `Stream<Order>`，把 `Stream` 當成是盒子， `stream`就是將一群 `Order` 物件全部放入盒中，`flatMap` 指定的 Lambda 運算是 `order.getLineItems().stream()`，意思就是從盒中那群 `Order` 物件逐一取得 `List<LineItem>`，然後再用一個 `Stream` 將所有 `LineItem` 裝起來，也就是說， `Stream<Order>` 經由 `flatMap` 方法後映射為 `Stream<LineItem>`，這類操作一個盒子一個盒子（一個 `Stream` 一個 `Stream`）接續下去，例如，想進一步取得 `LineItem` 的贈品名稱可以如下：
+
+```java
+List<String> itemNames = orders.stream()
+                .flatMap(order -> order.getLineItems().stream())
+                .flatMap(lineItem -> lineItem.getPremiums().stream())
+                .map(LineItem::getName)
+                .collect(toList());
+```
+
+基本上，如果瞭解 `Optinal`、`Stream`（或其他型態）的 `flatMap` 方法，在一層一層盒子剝開後做了哪些運算，撰寫與閱讀程式碼時，忽略掉 `flatMap` 這個名稱，就能比較清楚程式碼的主要意圖。
+
+## `Stream` 與平行化
+
+在 〈`Stream` 的 `reduce` 與 `collect`〉 中提到 ... `Collector` 的 `accumulator` 之作用，在使用具有平行處理能力的 `Stream` 時... 嗯？這表示 `Stream` 有辦法進行平行處理？是的，這也是 JDK8 引入 Lambda 新特性主要目的之一，想要獲得平行處理能力在 JDK8 中可以說很簡單，例如這段程式碼：
+
+```java
+List<Person> males = persons.stream()
+               .filter(person -> person.getGender() == Person.Gender.MALE)
+               .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+```
+
+只要改成以下，就可能擁有平行處理之能力：
+
+```java
+List<Person> males = persons.parallelStream()
+              .filter(person -> person.getGender() == Person.Gender.MALE)
+              .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+```
+
+`Collection` 的 `parallelStream` 方法，傳回的 `Stream` 實例在實作時，會在可能的情況下進行平行處理，JDK8 希望你想要進行平行處理時，必須有明確的語義，這也是為什麼會有 `stream` 與 `parallelStream` 兩個方法，前者代表循序（Serial）處理，後者代表平行處理，想要知道 `Stream` 是否為平行處理，可以呼叫 `isParallel` 來得知。
+
+- 天下沒有白吃的午餐 － 留意順序
+
+使用了 `parallelStream`，不代表一定會平行處理而使得執行必然變快，要呼叫哪個方法，必須思考你的處理過程是否能夠分而治之（Divide and conquer）而後合併結果，在這個例子中，`filter` 與 `collect` 方法基本上都有可能。
+
+類似地，`Collectors` 有 `groupingBy` 與 `groupingByConcurrent` 兩個方法，前者代表循序處理，後者代表平行處理，是否呼叫後者，同樣你得思考處理過程是否能夠分而治之而後合併結果，如果可能，方能從中獲益。例如原先有段程式：
+
+```java
+Map<Person.Gender, List<Person>> males = persons.stream()
+                  .collect(
+                      groupingBy(Person::getGender));
+```
+
+想要在可能的情況下進行平行處理，可以改為：
+
+```java
+Map<Person.Gender, List<Person>> males = persons.parallelStream()
+                  .collect(
+                      groupingByConcurrent(Person::getGender));
+```
+
+`Stream` 實例若具有平行處理能力，處理過程會分而治之，也就是將任務切割為小任務，這表示每個小任務都是一個管線化操作，因此像以下的程式片段：
+
+```java
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+numbers.parallelStream()
+       .forEach(out::println);
+```
+
+你得到的顯示順序不會是 1、2、3、4、5、6、7、8、9，而可能是任意的順序，就 `forEach` 這個終結操作來說，如果於平行處理時，希望最後順序是照著原來 `Stream` 來源的順序，那可以呼叫 `forEachOrdered`。例如：
+
+```java
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+numbers.parallelStream()
+       .forEachOrdered(out::println);
+```
+
+在管線化操作時，如果 `forEachOrdered` 中間有其他如 `filter` 的中介操作，會試著平行化處理，然後最終 `forEachOrdered` 會以來源順序處理，因此，使用 `forEachOrdered` 這類的有序的處理時，可能會（或完全失去）失去平行化的一些優勢，實際上中介操作亦有可能如此，例如 `sorted` 方法。
+
+使用 `Stream` 的 `reduce` 與 `collect` 時，平行處理時也得留意一下順序，API 文件上基本上會記載終結操作時是否依來源順序，`reduce` 基本上是按照來源順序，而 `collect` 得視給予的 `Collector` 而定，在以下兩個例子，`collect` 都是依照來源順序處理：
+
+```java
+List<Person> males = persons.parallelStream()
+               .filter(person -> person.getGender() == Person.Gender.MALE)
+               .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+
+List<Person> males = persons.parallelStream()
+               .filter(person -> person.getGender() == Person.Gender.MALE)
+               .collect(toList());
+```
+
+在 `collect` 操作時若想要有平行效果，必須符合以下三個條件：
+
+- `Stream` 必須有平行處理能力
+- 傳入的 `Collector` 必須有 `Collector.Characteristics.CONCURRENT` 特性。
+- `Stream` 是無序的或者是 `Collector` 具有 `Collector.Characteristics.UNORDERED` 特性。
+
+
+想要知道 `Collector` 具有 `Collector.Characteristics.UNORDERED` 或 `Collector.Characteristics.UNORDERED`，可以呼叫 `Collector` 的 `characteristics` 方法，平行處理的 `Stream` 基本上是無序的，如果不放心，可以呼叫 `Stream` 的 `unordered` 方法。
+
+`Colllector` 具有 `CONCURRENT`與 `UNORDERED` 特性的例子之一是 `Collectors` 的 `groupingByConcurrent` 方法傳回的實例，因此在最後順序不重要時，使用 `groupingByConcurrent` 來取代 `groupingBy` 方法，對效能上會有所幫助。
+
+- 天下沒有白吃的午餐 － 不要干擾來源
+
+想要善用 JDK8 提供的平行處理能力，你的資料處理過程必須能夠分而治之，而後將每個小任務的結果加以合併，這表示當 API 在處理小任務時，你不應該進行干預，例如：
+
+```java
+numbers.parallelStream()
+       .filter(number -> {
+            numbers.add(7);
+            return number > 5;
+       })
+       .forEachOrdered(out::println);
+```
+
+無論是基於哪種理由，像這類對來源資料的干擾都令人困惑，實際上無論是否進行平行處理，這樣的程式都會引發 `ConcurrentModifiedException`。
+
+- 天下沒有白吃的午餐 － 一次做一件事
+
+JDK8 提供高階語義的管線化 API、在可能的情況下實現惰性、平行處理能力，目的之一是希望你思考處理的過程中，實際上是由哪些小任務組成，在過去，你可能基於（自我想像的）效能增進考量，在迴圈中做了很多件事，因而讓程式變得複雜，現在使用了高階 API，就要避免走回頭路。例如，過去你在寫 `for` 迴圈時，可能會順便做些動作，像是過濾元素做顯示的同時，將元素作個運算並收集在另一個清單中：
+
+```java
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+List<Integer> alsoLt = new ArrayList<>();
+        
+for(Integer number : numbers) {
+    if(number > 5) {
+        alsoLt.add(number + 10);
+        out.println(number);
+    }
+}
+```
+
+在 JDK8 中使用高階 API 時，記得一次只做一件事：
+
+```java
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+List<Integer> biggerThan5 = numbers.stream()
+                 .filter(number -> number > 5)
+                 .collect(toList());
+        
+biggerThan5.forEach(out::println);
+        
+List<Integer> alsoLt = biggerThan5.stream()
+                .map(number -> number + 10)
+                .collect(toList());
+```
+
+避免寫出以下的程式：
+
+```java
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+List<Integer> alsoLt = new ArrayList<>();
+        
+numbers.stream()
+       .filter(number -> {
+           boolean isBiggerThan5 = number > 5;
+           if(isBiggerThan5) {
+               alsoLt.add(number + 10);
+           }
+           return isBiggerThan5;
+        })
+        .forEach(out::println);
+```
+
+這樣的程式不僅不易理解，如果你試圖進行平行化處理時：
+
+```java
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+List<Integer> alsoLt = new ArrayList<>();
+
+numbers.parallelStream()
+        .filter(number -> {
+            boolean isBiggerThan5 = number > 5;
+            if(isBiggerThan5) {
+                 alsoLt.add(number + 10);
+            }
+            return isBiggerThan5;
+        })
+        .forEachOrdered(out::println);
+```
+
+就會發現，`alsoLt` 的順序並不照著 `numbers` 的順序，然而上頭一次處理一個任務的版本，可以簡單地改為平行化版本：
+
+```java
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+List<Integer> biggerThan5 = numbers.parallelStream()
+                 .filter(number -> number > 5)
+                 .collect(toList());
+        
+biggerThan5.forEach(out::println);
+        
+List<Integer> alsoLt = biggerThan5.parallelStream()
+                .map(number -> number + 10)
+                .collect(toList());
+```
+
