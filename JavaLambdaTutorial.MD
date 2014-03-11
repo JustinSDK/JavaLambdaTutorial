@@ -974,7 +974,8 @@ Collections.sort(applicants, vacancy::bySeniority);
 ```java
 public interface Part {
     ...
-}```
+}
+```
 
 ```java
 public interface Material {
