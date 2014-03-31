@@ -1977,8 +1977,7 @@ out.println(firstMatchdLine);
 String fileName = args[0];
 String prefix = args[1];
 Optional<String> firstMatchdLine = 
-                Files.newBufferedReader(Paths.get(fileName))
-                     .lines()
+                Files.lines(Paths.get(fileName))
                      .filter(line -> line.startsWith(prefix))
                      .findFirst();
 out.println(firstMatchdLine.orElse("no matched line"));
@@ -1986,11 +1985,13 @@ out.println(firstMatchdLine.orElse("no matched line"));
 
 一眼可見到最大的差別是沒有使用到for迴圈與if判斷式，以及使用了管線化（Pipeline）操作風格，而效能上也有所差異，如果讀取的檔案很大，第二個程式片段會比第一個程式片段來得有效率。
 
-`java.nio.file.Files` 的 `newBufferedReader` 方法會建立`java.io.BufferedReader` 實例，`BufferedReader` 有個 `lines` 方法，會傳回 `java.util.stream.Stream` 實例，就這個例子來說就是 `Stream<String>`，使用 `Stream` 的 `filter` 方法會過濾留下符合條件的元素，`findFirst` 方法會嘗試看看留下的元素有沒有首元素，因為也可能完全沒有元素，因此傳回 `Optional<String>` 實例。
+`java.nio.file.Files` 的 `lines` 方法，會傳回 `java.util.stream.Stream` 實例，就這個例子來說就是 `Stream<String>`，使用 `Stream` 的 `filter` 方法會過濾留下符合條件的元素，`findFirst` 方法會嘗試看看留下的元素有沒有首元素，因為也可能完全沒有元素，因此傳回 `Optional<String>` 實例。
 
 效能上的差異性在於，第一個程式片段的 `Files.readAllLines` 方法傳回的是`List<String>` 實例，當中包括了檔案中所有行，如果第一行就符合指定的條件了，那後續的行讀取就是多餘的；第二個程式片段的 `lines` 方法實際上沒有進行任何一行的讀取， `filter` 也沒有作任何一行的過濾，直到呼叫 `findFirst` 時，`filter` 指定的條件才會真正去執行，而此時才會要求 `lines` 傳回的 `Stream` 進行第一行讀取，如果第一行就符合，那後續的行就不會再讀取，效率的差異性就在於此。
 
 之所以能夠達到這類惰性求值（Lazy evaluation）的效果，也就是需要時 `findFirst` 要求 `filter`，而 `filter` 再要求讀取檔案下一行這種你需要我再給的行為，功臣就是 `Stream` 實例。第一個程式片段要取得 `List` 傳回的 `Iterator`，以搭配 `for` 迴圈進行外部迭代（External iteration），第二個程式片段則將迭代行為隱藏在 `lines`、`filter` 與 `findFirst` 方法之中，稱之為內部迭代（Internal iteration），因為內部迭代的行為是被隱藏的，因此多了很多可以實現效率的可能性。
+
+在 [`Stream` 的 API 文件](http://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html) 中談到，`Stream` 繼承了 `AutoClosable`，而 `BaseStream.close()` 實作了 `close` 方法，然而基本上，絕大多數的 `Stream` 並不需要呼叫 `close` 方法，除了一些 IO 操作之外，例如 [`Files.lines(Path, Charset))`](http://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html#lines-java.nio.file.Path-java.nio.charset.Charset-) 方法 ，建議這類操作可以搭配 try-with-resource 語法。
 
 JDK8 引入了 `Stream` API，也引入了管線操作風格，一個管線基本上包括了幾個部份：
 
