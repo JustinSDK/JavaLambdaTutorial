@@ -1991,7 +1991,7 @@ out.println(firstMatchdLine.orElse("no matched line"));
 
 之所以能夠達到這類惰性求值（Lazy evaluation）的效果，也就是需要時 `findFirst` 要求 `filter`，而 `filter` 再要求讀取檔案下一行這種你需要我再給的行為，功臣就是 `Stream` 實例。第一個程式片段要取得 `List` 傳回的 `Iterator`，以搭配 `for` 迴圈進行外部迭代（External iteration），第二個程式片段則將迭代行為隱藏在 `lines`、`filter` 與 `findFirst` 方法之中，稱之為內部迭代（Internal iteration），因為內部迭代的行為是被隱藏的，因此多了很多可以實現效率的可能性。
 
-在 [`Stream` 的 API 文件](http://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html) 中談到，`Stream` 繼承了 `AutoClosable`，而 `BaseStream.close()` 實作了 `close` 方法，然而基本上，絕大多數的 `Stream` 並不需要呼叫 `close` 方法，除了一些 IO 操作之外，例如 [`Files.lines(Path, Charset))`](http://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html#lines-java.nio.file.Path-java.nio.charset.Charset-) 方法 ，建議這類操作可以搭配 try-with-resource 語法。
+在 [`Stream` 的 API 文件](http://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html) 中談到，`Stream` 繼承了 `AutoClosable`，而 `BaseStream.close()` 實作了 `close` 方法，然而基本上，絕大多數的 `Stream` 並不需要呼叫 `close` 方法，除了一些 IO 操作之外，例如 `Files.lines`、`Files.list` 與 `Files.walk` 方法 ，建議這類操作可以搭配 try-with-resource 語法。
 
 JDK8 引入了 `Stream` API，也引入了管線操作風格，一個管線基本上包括了幾個部份：
 
