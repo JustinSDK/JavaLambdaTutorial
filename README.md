@@ -14,29 +14,29 @@ Java 引入的新典範其實有著函數式程式設計（Functional programmin
 Java SE 8 確定於 2014 年 3 月發表，而我發現過去的這幾個議程可以整理成為系列文章，讓大家可以認識 Java 中 Lambda 的前世今生。除此之外，最後並加上了 JDK8 Functional API 的介紹，讓本書對 JDK8 Lambda 的介紹更為完整。
 
 - 認識 Lambda/Closure
-  - [從 JavaScript 的函式物件談起](http://www.codedata.com.tw/java/understanding-lambda-closure-1-from-javascript-function-1)
-  - [什麼是 Closure？](http://www.codedata.com.tw/java/understanding-lambda-closure-2-what-is-closure-2)
-  - [Python 對 Lambda/Closure 的支援](http://www.codedata.com.tw/java/understanding-lambda-closure-3-python-support/)
-  - [從 Scala 中借鏡](http://www.codedata.com.tw/java/understanding-lambda-closure-4-learning-from-scala-lang/)
-  - [Java 的稻草人提案](http://www.codedata.com.tw/java/understanding-lambda-closure-5-straw-man/)
-  - [一級函式與 Lambda 演算](http://www.codedata.com.tw/java/understanding-lambda-closure-6-lambda-calculus/)
-  - [JDK8 Lambda 語法](http://www.codedata.com.tw/java/understanding-lambda-closure-7-jdk8-lambda-syntax/)
-  - [方法參考與建構式參考](http://www.codedata.com.tw/java/understanding-lambda-closure-8-method-constructor-reference/)
+  - [從 JavaScript 的函式物件談起](https://openhome.cc/Gossip/CodeData/JavaLambdaTutorial/JavaScript.html)
+  - [什麼是 Closure？](https://openhome.cc/Gossip/CodeData/JavaLambdaTutorial/Closure.html)
+  - [Python 對 Lambda/Closure 的支援](https://openhome.cc/Gossip/CodeData/JavaLambdaTutorial/Python.html)
+  - [從 Scala 中借鏡](https://openhome.cc/Gossip/CodeData/JavaLambdaTutorial/Scala.html)
+  - [Java 的稻草人提案](https://openhome.cc/Gossip/CodeData/JavaLambdaTutorial/StrawMan.html)
+  - [一級函式與 Lambda 演算](https://openhome.cc/Gossip/CodeData/JavaLambdaTutorial/LambdaCalculus.html)
+  - [JDK8 Lambda 語法](https://openhome.cc/Gossip/CodeData/JavaLambdaTutorial/Java8Lambda.html)
+  - [方法參考與建構式參考](https://openhome.cc/Gossip/CodeData/JavaLambdaTutorial/MethodReference.html)
 
 - Java 開發者的函數式程式設計
-  - [初探函數式程式設計](http://www.codedata.com.tw/java/functional-programming-for-java-developers-1-a-preliminary-study/)
-  - [代數資料型態](http://www.codedata.com.tw/java/functional-programming-for-java-developers-2-algebraic-data-types/)
-  - [List 處理模式](http://www.codedata.com.tw/java/functional-programming-for-java-developers-3-list-patterns/)
-  - [不可變特性](http://www.codedata.com.tw/java/functional-programming-for-java-developers-4-immutability/)
-  - [JDK8 預設方法](http://www.codedata.com.tw/java/functional-programming-for-java-developers-5-jdk8-default-methods/)
-  - [惰性](http://www.codedata.com.tw/java/functional-programming-for-java-developers-6-laziness/)
+  - [初探函數式程式設計](https://openhome.cc/Gossip/CodeData/JavaLambdaTutorial/FunctionalProgramming.html)
+  - [代數資料型態](https://openhome.cc/Gossip/CodeData/JavaLambdaTutorial/AlgebraicDataType.html)
+  - [List 處理模式](https://openhome.cc/Gossip/CodeData/JavaLambdaTutorial/ListPatterns.html)
+  - [不可變特性](https://openhome.cc/Gossip/CodeData/JavaLambdaTutorial/Immutability.html)
+  - [JDK8 預設方法](https://openhome.cc/Gossip/CodeData/JavaLambdaTutorial/Java8DefaultMethod.html)
+  - [惰性](https://openhome.cc/Gossip/CodeData/JavaLambdaTutorial/Laziness.html)
   
 - JDK8 Functional API
-  - [使用 Optional 取代 null](http://openhome.cc/Gossip/Java/Optional.html)
-  - [Consumer、Function、Predicate 與 Supplier](http://openhome.cc/Gossip/Java/ConsumerFunctionPredicateSupplier.html)
-  - [使用 Stream 進行管線操作](http://openhome.cc/Gossip/Java/Stream.html)
-  - [Stream 的 reduce 與 collect](http://openhome.cc/Gossip/Java/Reduction.html)
-  - [Optional 與 Stream 的 flatMap](http://openhome.cc/Gossip/Java/FlatMap.html)
-  - [Stream 與平行化](http://openhome.cc/Gossip/Java/ParallelStream.html)
+  - [使用 Optional 取代 null](https://openhome.cc/Gossip/Java/Optional.html)
+  - [Consumer、Function、Predicate 與 Supplier](https://openhome.cc/Gossip/Java/ConsumerFunctionPredicateSupplier.html)
+  - [使用 Stream 進行管線操作](https://openhome.cc/Gossip/Java/Stream.html)
+  - [Stream 的 reduce 與 collect](https://openhome.cc/Gossip/Java/Reduction.html)
+  - [Optional 與 Stream 的 flatMap](https://openhome.cc/Gossip/Java/FlatMap.html)
+  - [Stream 與平行化](https://openhome.cc/Gossip/Java/ParallelStream.html)
 
 
