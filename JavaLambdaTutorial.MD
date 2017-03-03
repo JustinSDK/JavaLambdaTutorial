@@ -187,7 +187,7 @@ JavaScript 中每個函式物件都會擁有 `call` 方法，第一個參數接�
 
 看來，`balance` 變數可以橫跨多個 Closure，所以若要用比擬的方式來說，就像是腳踏多條船吧！… XD
 
-以上的討論，大概讓我們瞭解 Closure 的基本概念與作用，我不打算談太多 JavaScript 中閉包的應用，有興趣的話，可以參考 [JavaScript Essence: 閉包（Closure）](http://openhome.cc/Gossip/JavaScript/Closure.html "JavaScript Essence: 閉包（Closure）")。
+以上的討論，大概讓我們瞭解 Closure 的基本概念與作用，我不打算談太多 JavaScript 中閉包的應用，有興趣的話，可以參考 [JavaScript Essence: 閉包（Closure）](https://openhome.cc/Gossip/JavaScript/Closure.html "JavaScript Essence: 閉包（Closure）")。
 
 我們將逐步討論不同語言中對一級函式與閉包的支援，逐步帶出 Java 中引入 Lambda 語法的考量點有哪些。接下來，會先來看看 Python 3 是如何支援一級函式與閉包。
 
@@ -361,7 +361,7 @@ bubbleSort(arr, (_: Int) > (_: Int))
 
 或者，甚至是以下最短的語法：
 
-在這邊不打算解釋 Scala 是如何完成這類的魔法，如果有興趣瞭解的話，可以進一步看看 [Scala 學習筆記](http://openhome.cc/Gossip/Scala/ "Scala 學習筆記")。
+在這邊不打算解釋 Scala 是如何完成這類的魔法，如果有興趣瞭解的話，可以進一步看看 [Scala 學習筆記](https://openhome.cc/Gossip/Scala/ "Scala 學習筆記")。
 
 這邊的重點在於，對於靜態語言來說，類型推斷是很重要的功能。在必須提供型態資訊的場合中，類型推斷可以讓程式碼簡潔易讀，像是在宣告變數或者是撰寫匿名函式的時候。Lambda/Closure 是個表達工具，如果沒有型態推斷，過於冗長的語法只會讓開發者望之卻步，不可能讓他們有意願採用。
 
@@ -1713,7 +1713,7 @@ JDK8 新增了 `java.util.Optional` 類別，在談到這個類別如何使用�
 
 > *I call it my billion-dollar mistake.*
 
-`null` 的問題在於含糊而不明確，引發的各種問題從 Java 開發者經常在與 `NullPointerException` 奮戰可見一般，我在 [〈補救 null 的策略〉](http://openhome.cc/Gossip/Programmer/Null.html) 中談過：
+`null` 的問題在於含糊而不明確，引發的各種問題從 Java 開發者經常在與 `NullPointerException` 奮戰可見一般，我在 [〈補救 null 的策略〉](https://openhome.cc/Gossip/Programmer/Null.html) 中談過：
 
 > `null` 的最根本問題在於語意含糊不清，雖然就字面來說，`null` 可以是「不存在」、「沒有」、「無」或「空」的概念，因此在應用時，總是令人感到模稜兩可，也就讓開發者有了各自解釋的空間，當開發者想到「嘿！這邊可以沒有東西…」就直接放個 `null`，或者是想到「嗯！沒什麼東西可以傳回…」，就不假思索地傳回個 `null`，然後使用者就總是忘了檢查 `null`，引發各種可能的錯誤。
 
